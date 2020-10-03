@@ -1,7 +1,25 @@
 import React from "react";
 import "./App.css";
+import styled from "styled-components";
 
 import Person from "./Person/Person";
+
+const ShowButton = styled.button`
+  background-color: ${(props) => (props.show ? "tomato" : "teal")};
+  font: inherit;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #fff;
+
+  &:hover {
+    background-color: gold;
+  }
+`;
+
+const Div = styled.div`
+  text-align: center;
+`;
 
 class App extends React.Component {
   state = {
@@ -32,21 +50,14 @@ class App extends React.Component {
 
   render() {
     const persons = this.state.persons;
-    const style = {
-      backgroundColor: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-    };
 
     return (
-      <div className="App">
+      <Div>
         <h1>Hi I'm a React App</h1>
         <p>This is really working</p>
-        <button onClick={this.toggleHandler} style={style}>
-          Switch Name
-        </button>
+        <ShowButton show={this.state.doesShow} onClick={this.toggleHandler}>
+          {this.state.doesShow ? "Hide Persons" : "Show Persons"}
+        </ShowButton>
         <ul className={this.state.doesShow ? "list" : "hidden"}>
           {persons &&
             persons.map((person, index) => (
@@ -58,7 +69,7 @@ class App extends React.Component {
               />
             ))}
         </ul>
-      </div>
+      </Div>
     );
   }
 }
